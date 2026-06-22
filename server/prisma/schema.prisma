@@ -1,0 +1,38 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model ContentItem {
+  id        Int      @id @default(autoincrement())
+  title     String
+  status    Status   @default(IDEA)
+  authors   String   // JSON-array af brugernavne, f.eks. '["andreas","maria"]'
+  deadline  DateTime
+  type      ItemType
+  createdBy String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Status {
+  IDEA
+  DRAFT
+  REVIEW
+  PUBLISHED
+  ARCHIVED
+}
+
+enum ItemType {
+  ARTICLE
+  VIDEO
+  PODCAST
+  OTHER
+}

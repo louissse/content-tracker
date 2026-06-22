@@ -13,6 +13,9 @@ server/prisma/*.db-journal
 .env
 .env.local
 
+# Genereret Prisma-klient
+server/src/generated/
+
 # OS files
 .DS_Store
 Thumbs.db
