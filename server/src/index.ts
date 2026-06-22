@@ -3,6 +3,7 @@ import { serve } from "@hono/node-server";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import auth from "./routes/auth.js";
+import items from "./routes/items.js";
 
 const app = new Hono();
 
@@ -17,6 +18,7 @@ app.use(
 );
 
 app.route("/auth", auth);
+app.route("/items", items);
 
 app.get("/", (c) => {
   return c.json({ message: "Content Tracker API is running" });
