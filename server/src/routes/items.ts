@@ -16,15 +16,16 @@ items.get("/", requireAuth, async (c) => {
 // Opret nyt item
 items.post("/", requireAuth, async (c) => {
   const payload = c.get("jwtPayload") as { username: string; role: string };
-  const { title, authors, deadline, type } = await c.req.json();
+  const { title, authors, deadline, type, status } = await c.req.json();
 
   const newItem = await db.contentItem.create({
     data: {
       title,
-      authors: JSON.stringify(authors ?? []),
+      authors: authors ?? '',
       deadline: new Date(deadline),
       type,
       createdBy: payload.username,
+      status,
     },
   });
 
@@ -32,15 +33,14 @@ items.post("/", requireAuth, async (c) => {
 });
 
 // Rediger item
-items.put("/:id", requireAuth, async (c) => {
+items.patch("/:id", requireAuth, async (c) => {
   const payload = c.get("jwtPayload") as { username: string; role: string };
   const id = parseInt(c.req.param("id"));
-  const { title, authors, deadline, type } = await c.req.json();
+  const { title, authors, deadline, type, status } = await c.req.json();
 
   const existing = await db.contentItem.findUnique({ where: { id } });
   if (!existing) return c.json({ error: "Item ikke fundet" }, 404);
 
-  // Contributors må kun redigere egne items
   if (payload.role === "CONTRIBUTOR" && existing.createdBy !== payload.username) {
     return c.json({ error: "Ingen adgang" }, 403);
   }
@@ -49,9 +49,10 @@ items.put("/:id", requireAuth, async (c) => {
     where: { id },
     data: {
       title,
-      authors: JSON.stringify(authors ?? []),
+      authors: authors ?? '',
       deadline: new Date(deadline),
       type,
+      status,
     },
   });
 

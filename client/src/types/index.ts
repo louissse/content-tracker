@@ -1,8 +1,8 @@
-export type Status = "IDEA" | "DRAFT" | "REVIEW" | "PUBLISHED" | "ARCHIVED";
+export type Status = 'IDEA' | 'DRAFT' | 'REVIEW' | 'PUBLISHED' | 'ARCHIVED';
 
-export type ItemType = "ARTICLE" | "VIDEO" | "PODCAST" | "OTHER";
+export type ItemType = 'ARTICLE' | 'VIDEO' | 'PODCAST' | 'OTHER';
 
-export type Role = "EDITOR" | "CONTRIBUTOR";
+export type Role = 'EDITOR' | 'CONTRIBUTOR';
 
 export interface ContentItem {
   id: number;
@@ -23,9 +23,5 @@ export interface User {
 
 // Hjælpefunktion til at parse authors-feltet fra JSON-streng til array
 export function parseAuthors(authors: string): string[] {
-  try {
-    return JSON.parse(authors);
-  } catch {
-    return [];
-  }
+  return authors.split(', ');
 }
