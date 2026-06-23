@@ -39,6 +39,7 @@ export default function EditItemDialog({
   const EDITABLE_STATUSES = (Object.keys(STATUS_LABELS) as Status[]).filter(
     (s) => s !== 'PUBLISHED' && s !== 'ARCHIVED'
   );
+  const itemIsPublished = item?.status === 'PUBLISHED';
 
   const handleSubmit = () => {
     if (!item) return;
@@ -120,21 +121,33 @@ export default function EditItemDialog({
               />
             </div>
 
-            <div>
-              <label className="block text-sm text-gray-600 mb-1">Status</label>
-              <select
-                value={status}
-                onChange={(e) => setStatus(e.target.value as Status)}
-                disabled={!canEdit}
-                className="w-full border border-gray-200 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300 disabled:bg-gray-50 disabled:text-gray-400"
-              >
-                {EDITABLE_STATUSES.map((s) => (
-                  <option key={s} value={s}>
-                    {STATUS_LABELS[s]}
-                  </option>
-                ))}
-              </select>
-            </div>
+            {!itemIsPublished && (
+              <div>
+                <label className="block text-sm text-gray-600 mb-1">
+                  Status
+                </label>
+                <select
+                  value={status}
+                  onChange={(e) => setStatus(e.target.value as Status)}
+                  disabled={!canEdit}
+                  className="w-full border border-gray-200 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300 disabled:bg-gray-50 disabled:text-gray-400"
+                >
+                  {EDITABLE_STATUSES.map((s) => (
+                    <option key={s} value={s}>
+                      {STATUS_LABELS[s]}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
+            {itemIsPublished && (
+              <div className="flex gap-2">
+                <div className="block text-sm text-gray-600 mb-1">Status:</div>
+                <div className="text-sm font-semibold text-green-600">
+                  Publiceret
+                </div>
+              </div>
+            )}
           </div>
 
           <div className="flex items-center justify-between mt-6">
@@ -146,12 +159,15 @@ export default function EditItemDialog({
                 >
                   Arkivér
                 </button>
-                <button
-                  onClick={handlePublish}
-                  className="text-sm text-green-600 hover:text-green-800 cursor-pointer"
-                >
-                  Publicér
-                </button>
+
+                {!itemIsPublished && (
+                  <button
+                    onClick={handlePublish}
+                    className="text-sm text-green-600 hover:text-green-800 cursor-pointer"
+                  >
+                    Publicér
+                  </button>
+                )}
               </div>
             )}
             <div className="flex gap-3 ml-auto">

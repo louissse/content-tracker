@@ -4,6 +4,7 @@ import { jwt } from "hono/jwt";
 export const USERS = [
   { username: "andreas", password: "andreas123", role: "EDITOR" },
   { username: "louise", password: "louise123", role: "CONTRIBUTOR" },
+  { username: "mette", password: "mette123", role: "CONTRIBUTOR" },
 ];
 
 const jwtSecret = process.env["JWT_SECRET"];
