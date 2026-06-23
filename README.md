@@ -28,7 +28,7 @@ Er overblik over nogle af de user stories der er arbejdet efter kan ses på dett
 
 ```bash
 # Klon projektet
-git clone https://github.com/dit-brugernavn/content-tracker.git
+git clone https://github.com/louissse/content-tracker.git
 cd content-tracker
 ```
 
