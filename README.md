@@ -6,6 +6,8 @@ Et internt redaktionelt workflow-system til Frihedsbrevet, der erstatter eksiste
 
 Er overblik over nogle af de user stories der er arbejdet efter kan ses på dette projekt: https://github.com/users/louissse/projects/4/views/1
 
+<img width="1142" height="701" alt="image" src="https://github.com/user-attachments/assets/4fb75202-2c82-4aea-bfae-b73dad25d5b7" />
+
 ---
 
 ## Tech Stack
